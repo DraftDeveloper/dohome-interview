@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
 // DnD
 import {
   DndContext,
@@ -394,6 +392,7 @@ export default function Home() {
                   id={container.id}
                   title={container.title}
                   key={container.id}
+                  color="red"
                   onAddItem={() => {
                     setShowAddItemModal(true);
                     setCurrentContainerId(container.id);
@@ -402,7 +401,7 @@ export default function Home() {
                   <SortableContext items={container.items.map((i) => i.id)}>
                     <div className="flex items-start flex-col gap-y-4">
                       {container.items.map((i) => (
-                        <Items title={i.title} id={i.id} key={i.id} />
+                        <Items title={i.title} id={i.id} key={i.id} color="red" />
                       ))}
                     </div>
                   </SortableContext>
@@ -412,13 +411,13 @@ export default function Home() {
             <DragOverlay adjustScale={false}>
               {/* Drag Overlay For item Item */}
               {activeId && activeId.toString().includes('item') && (
-                <Items id={activeId} title={findItemTitle(activeId)} />
+                <Items id={activeId} title={findItemTitle(activeId)} color="red" />
               )}
               {/* Drag Overlay For Container */}
               {activeId && activeId.toString().includes('container') && (
-                <Container id={activeId} title={findContainerTitle(activeId)}>
+                <Container id={activeId} title={findContainerTitle(activeId)} color="red" >
                   {findContainerItems(activeId).map((i) => (
-                    <Items key={i.id} title={i.title} id={i.id} />
+                    <Items key={i.id} title={i.title} id={i.id} color="red" />
                   ))}
                 </Container>
               )}

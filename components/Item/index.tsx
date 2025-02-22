@@ -4,37 +4,15 @@ import React,{useState} from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import clsx from 'clsx';
 
-const posts = [
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  // More posts...
-]
-
 type ItemsType = {
   id: UniqueIdentifier;
   title: string;
+  color: string;
 };
 
-const Items = ({ id, title }: ItemsType) => {
-  const [color, setScolor] = useState("red"); 
+const Items = ({ id, title,color }: ItemsType) => {
 
+  const className = `from-${color}-300`;
   const {
     attributes,
     listeners,
@@ -61,7 +39,8 @@ const Items = ({ id, title }: ItemsType) => {
         isDragging && 'opacity-50`,
       )}
     >
-    <div className={`overflow-hidden rounded-lg bg-gradient-to-b from-${color}-300 shadow-sm`}>
+    {/* <div className={`overflow-hidden rounded-lg bg-gradient-to-b from-${color}-300 shadow-sm`}> */}
+    <div className={clsx("overflow-hidden rounded-lg bg-gradient-to-b shadow-sm",className)}>
     <div className="flex flex-row-reverse ...">
       <button
       className="border p-1 text-xs rounded-xl shadow-lg hover:shadow-xl"
