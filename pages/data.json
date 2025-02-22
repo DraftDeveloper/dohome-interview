@@ -5,7 +5,7 @@
       "items": [
         {
           "id": "item-1",
-          "title": "mobile app desong",
+          "title": "mobile app desing",
           "image": "",
           "color": "purple",
           "checkList": [
@@ -34,7 +34,7 @@
         {
           "id": "item-2",
           "title": "service auto mall",
-          "image": "images/automall.jpeg",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbjgXEaSLSuNs-eYQBLUchkH6g2ZjhW8o2VEd1dpRAM-h9Trn9hiEwm5zFnvLWsyvHtfw&usqp=CAU",
           "color": "sky",
           "checkList": [
             {
@@ -58,7 +58,7 @@
         {
           "id": "item-3",
           "title": "Implement Notification System",
-          "image": "/images/demo.avif",
+          "image": "https://bizidea.co.th/uploads/article/66ea581763449.jpg",
           "color": "red",
           "checkList": [
             {
@@ -101,7 +101,7 @@
         {
           "id": "item-5",
           "title": "design database schema customer",
-          "image": "/images/databasedemo.png",
+          "image": "https://res.cloudinary.com/dg5w52yqv/image/upload/c_scale,w_auto,q_auto,dpr_auto,f_auto/drawsql.app/drawsql-screenshot-2.png",
           "color": "red",
           "checkList": [
             {

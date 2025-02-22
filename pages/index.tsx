@@ -1,6 +1,8 @@
 import { useState,useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import data from "./data.json"
+
+
 // DnD
 import {
   DndContext,
@@ -27,9 +29,10 @@ import { Inter } from 'next/font/google';
 import Container from '@/components/Container';
 import Items from '@/components/Item';
 import Modal from '@/components/Modal';
+import ModalItem from  '@/components/Modal/modelitem';
 import Input from '@/components/Input';
 import { Button } from '@/components/Button';
-import { DNDType } from '@/components/interface';
+import { DNDType,CheckList } from '@/components/interface';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,8 +44,20 @@ export default function Home() {
     useState<UniqueIdentifier>();
   const [containerName, setContainerName] = useState('');
   const [itemName, setItemName] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [showAddContainerModal, setShowAddContainerModal] = useState(false);
   const [showAddItemModal, setShowAddItemModal] = useState(false);
+  const [inputCheckList, setInputCheckList] = useState<string[]>([""]);
+  const [selectedPiorityValue, setselectedPiorityValue] = useState("red");
+
+
+  const addInput = () => {
+    setInputCheckList([...inputCheckList, ""]);
+  };
+
+  const handlePiorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setselectedPiorityValue(e.target.value);
+  };
 
   const onAddContainer = () => {
     if (!containerName) return;
@@ -60,16 +75,24 @@ export default function Home() {
   };
 
   const onAddItem = () => {
+    //debugger
     if (!itemName) return;
+
     const id = `item-${uuidv4()}`;
+    const filteredInputs = inputCheckList.filter((item) => item.trim() !== "");
+    const checkListParam: CheckList[] = filteredInputs.map((value, idx) => ({
+      id: `check-${idx}`, 
+      isCheck: false,  
+      value,
+    }));
     const container = containers.find((item) => item.id === currentContainerId);
     if (!container) return;
     container.items.push({
       id,
       title: itemName,
-      color:"",
-      image:"",
-      checkList:[]
+      color:selectedPiorityValue,
+      image:imageUrl,
+      checkList:checkListParam
     });
     setContainers([...containers]);
     setItemName('');
@@ -363,19 +386,102 @@ export default function Home() {
           <Button onClick={onAddContainer}>Create</Button>
         </div>
       </Modal>
-      <Modal showModal={showAddItemModal} setShowModal={setShowAddItemModal}>
-        <div className="flex flex-col w-full items-start gap-y-4">
-          <h1 className="text-gray-800 text-3xl font-bold">Add Item</h1>
-          <Input
+      <ModalItem showModal={showAddItemModal} setShowModal={setShowAddItemModal}> 
+      <div className="space-y-12">
+        <div className="border-b border-gray-900/10 pb-12">
+          <h2 className="text-base/7 font-semibold text-gray-900">Create Card</h2>
+
+
+          <div className="col-span-full">
+  <label htmlFor="street-address" className="block text-sm font-medium text-gray-900">
+  Titile
+  </label>
+      <div className="mt-2">
+        <input
+          id="titile"
+          name="titile"
+          type="titile"
+          onChange={(e) => setItemName(e.target.value)}
+          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 focus:border-black border border-black sm:text-sm"
+    />
+  </div>
+</div>
+
+<div className="col-span-full">
+  <label htmlFor="street-address" className="block text-sm font-medium text-gray-900">
+  Images URL
+  </label>
+      <div>
+        <input
+          id="url"
+          name="url"
+          type="text"
+          autoComplete=""
+          onChange={(e) => setImageUrl(e.target.value)}
+          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 focus:border-black border border-black sm:text-sm"
+    />
+  </div>
+</div>
+
+<div className="col-span-full mt-1">
+  <label htmlFor="street-address" className="block text-sm font-medium text-gray-900">
+  Piority
+  </label>
+      <div className="mt-2 sm:col-span-2 sm:mt-0">
+                <div className="grid grid-cols-1">
+                  <select
+                    id="country"
+                    name="country"
+                    autoComplete="country-name"
+                    value={selectedPiorityValue}  
+                    onChange={handlePiorityChange} 
+                              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 focus:border-black border border-black sm:text-sm"
+                  >
+                    <option value="red">Critical</option>
+                    <option value="yellow">Important</option>
+                    <option value="green">Normal</option>
+                    <option value="sky">Low</option>
+                    <option value="purple">Test</option>
+                  </select>
+                </div>
+              </div>
+</div>
+
+<div className="col-span-full mt-4">
+      <label className="block text-sm font-medium text-gray-900">CheckList</label>
+      <Button
+        onClick={addInput}
+      >
+        Add check list
+      </Button>
+      <div className="mt-2 space-y-2">
+        {inputCheckList.map((value, index) => (
+          <input
+            key={index}
             type="text"
-            placeholder="Item Title"
-            name="itemname"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
+            value={value}
+            onChange={(e) => {
+              const newInputs = [...inputCheckList];
+              newInputs[index] = e.target.value;
+              setInputCheckList(newInputs);
+            }}
+            className="block w-full rounded-md border border-black bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:border-black focus:outline-2 focus:outline-indigo-600 sm:text-sm"
           />
-          <Button onClick={onAddItem}>Add Item</Button>
+        ))}
+      </div>
+    </div>
+
         </div>
-      </Modal>
+
+      </div>
+
+      <div className="mt-6 flex items-center justify-end gap-x-6">
+        <button type="button" className="text-sm/6 font-semibold text-gray-900">
+          Cancel
+        </button>
+        <Button onClick={onAddItem}>Save</Button>
+      </div>
+      </ModalItem>
       <div className="flex items-center justify-between gap-y-2">
         <h1 className="text-gray-800 text-3xl font-bold">Kasemsak-Interview</h1>
         <Button onClick={() => setShowAddContainerModal(true)}>
