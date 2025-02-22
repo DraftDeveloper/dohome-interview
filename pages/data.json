@@ -1,0 +1,122 @@
+[
+    {
+      "id": "container-1",
+      "title": "Todo list",
+      "items": [
+        {
+          "id": "item-1",
+          "title": "mobile app desong",
+          "image": "",
+          "color": "purple",
+          "checkList": [
+            {
+              "id": "check-1",
+              "isCheck": true,
+              "value": "Create user flow"
+            },
+            {
+              "id": "check-2",
+              "isCheck": true,
+              "value": "Make wireframe"
+            },
+            {
+              "id": "check-3",
+              "isCheck": false,
+              "value": "Desing onboarding screens"
+            },
+            {
+              "id": "check-4",
+              "isCheck": false,
+              "value": "Make prototype"
+            }
+          ]
+        },
+        {
+          "id": "item-2",
+          "title": "service auto mall",
+          "image": "images/automall.jpeg",
+          "color": "sky",
+          "checkList": [
+            {
+              "id": "check-5",
+              "isCheck": false,
+              "value": "configEmail"
+            },
+            {
+              "id": "check-6",
+              "isCheck": false,
+              "value": "grpc automail service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "container-2",
+      "title": "In Progress",
+      "items": [
+        {
+          "id": "item-3",
+          "title": "Implement Notification System",
+          "image": "/images/demo.avif",
+          "color": "red",
+          "checkList": [
+            {
+              "id": "check-7",
+              "isCheck": false,
+              "value": "Get notified when a candidate accepts or rejects an offer."
+            },
+            {
+              "id": "check-8",
+              "isCheck": true,
+              "value": "Get notified when a candidate applies for a job."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "container-3",
+      "title": "In Review",
+      "items": [
+        {
+          "id": "item-4",
+          "title": "unit test backend",
+          "image": "",
+          "color": "green",
+          "checkList": [
+            {
+              "id": "check-9",
+              "isCheck": true,
+              "value": "user service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "container-4",
+      "title": "Done",
+      "items": [
+        {
+          "id": "item-5",
+          "title": "design database schema customer",
+          "image": "/images/databasedemo.png",
+          "color": "red",
+          "checkList": [
+            {
+              "id": "check-10",
+              "isCheck": true,
+              "value": "design database schema customer"
+            },
+            {
+              "id": "check-11",
+              "isCheck": true,
+              "value": "insert value master"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  

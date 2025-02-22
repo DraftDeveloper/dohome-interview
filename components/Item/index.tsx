@@ -97,7 +97,7 @@ const Items = ({ id, title,color,image,checkList }: ItemsType) => {
       {image &&  <div className={clsx("relative w-full border-4 rounded-2xl",border_300)}>
           <img
                   alt=""
-                  src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
+                  src={image}
                   className={clsx("aspect-video w-full rounded-2xl object-cover sm:aspect-2/1 lg:aspect-3/2",bg_100)}
                 />
     
@@ -139,12 +139,16 @@ const Items = ({ id, title,color,image,checkList }: ItemsType) => {
           ))}
       </div>        
     </fieldset>  
-      <p className={clsx("text-sm font-medium mt-4 text-[8px] leading-[8px]",text_900)}>Progress : {status}</p>
+    {checkListValue &&   
+    <>  
+<p className={clsx("text-sm font-medium mt-4 text-[8px] leading-[8px]",text_900)}>Progress : {status}</p>
       <div aria-hidden="true" className="mt-1">
         <div className={clsx("overflow-hidden rounded-full", bg_200)}>
           <div style={{ width: status }} className={clsx("h-2 rounded-full",bg_600)} />
         </div>
       </div>
+      </>
+    }
     </div>
     </div>
     </div>

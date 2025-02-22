@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import data from "./data.json"
 // DnD
 import {
   DndContext,
@@ -34,47 +35,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 
 export default function Home() {
-  const [containers, setContainers] = useState<DNDType[]>([
-    {
-      id: `container-${uuidv4()}`,
-      title: 'Todo list',
-      items: [
-        {
-          id: `item-${uuidv4()}`,
-          title: 'Item 1',
-          image: `${process.env.PUBLIC_URL}/images/demo.avif`,
-          color: "purple",
-          checkList: [
-            {
-              id: `check-${uuidv4()}`,
-              isCheck: false,
-              value: "Get notified when a candidate accepts or rejects an offer."
-            },
-            {
-              id: `check-${uuidv4()}`,
-              isCheck: true,
-              value: "Get notified when a candidate applies for a job."
-            },
-          ]
-        },
-      ],
-    },
-    {
-      id: `container-${uuidv4()}`,
-      title: 'In Progress',
-      items: [],
-    },
-    {
-      id: `container-${uuidv4()}`,
-      title: 'In Review',
-      items: [],
-    },
-    {
-      id: `container-${uuidv4()}`,
-      title: 'Done',
-      items: [],
-    },
-  ]);
+  const [containers, setContainers] = useState<DNDType[]>([]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [currentContainerId, setCurrentContainerId] =
     useState<UniqueIdentifier>();
@@ -397,6 +358,13 @@ export default function Home() {
     }
     setActiveId(null);
   }
+
+
+  useEffect(() => {
+    setContainers(data);
+  }, []);
+
+
 
   return (
     <div className="mx-auto max-w-7xl py-10">
