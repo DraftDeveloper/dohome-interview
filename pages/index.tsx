@@ -28,20 +28,53 @@ import Items from '@/components/Item';
 import Modal from '@/components/Modal';
 import Input from '@/components/Input';
 import { Button } from '@/components/Button';
+import { DNDType } from '@/components/interface';
 
 const inter = Inter({ subsets: ['latin'] });
 
-type DNDType = {
-  id: UniqueIdentifier;
-  title: string;
-  items: {
-    id: UniqueIdentifier;
-    title: string;
-  }[];
-};
 
 export default function Home() {
-  const [containers, setContainers] = useState<DNDType[]>([]);
+  const [containers, setContainers] = useState<DNDType[]>([
+    {
+      id: `container-${uuidv4()}`,
+      title: 'Todo list',
+      items: [
+        {
+          id: `item-${uuidv4()}`,
+          title: 'Item 1',
+          image: `${process.env.PUBLIC_URL}/images/demo.avif`,
+          color: "purple",
+          checkList: [
+            {
+              id: `check-${uuidv4()}`,
+              isCheck: false,
+              value: "Get notified when a candidate accepts or rejects an offer."
+            },
+            {
+              id: `check-${uuidv4()}`,
+              isCheck: true,
+              value: "Get notified when a candidate applies for a job."
+            },
+          ]
+        },
+      ],
+    },
+    {
+      id: `container-${uuidv4()}`,
+      title: 'In Progress',
+      items: [],
+    },
+    {
+      id: `container-${uuidv4()}`,
+      title: 'In Review',
+      items: [],
+    },
+    {
+      id: `container-${uuidv4()}`,
+      title: 'Done',
+      items: [],
+    },
+  ]);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [currentContainerId, setCurrentContainerId] =
     useState<UniqueIdentifier>();
@@ -73,6 +106,9 @@ export default function Home() {
     container.items.push({
       id,
       title: itemName,
+      color:"",
+      image:"",
+      checkList:[]
     });
     setContainers([...containers]);
     setItemName('');
@@ -97,6 +133,30 @@ export default function Home() {
     const item = container.items.find((item) => item.id === id);
     if (!item) return '';
     return item.title;
+  };
+
+  const findItemColor = (id: UniqueIdentifier | undefined) => {
+    const container = findValueOfItems(id, 'item');
+    if (!container) return '';
+    const item = container.items.find((item) => item.id === id);
+    if (!item) return '';
+    return item.color;
+  };
+
+  const findItemImage = (id: UniqueIdentifier | undefined) => {
+    const container = findValueOfItems(id, 'item');
+    if (!container) return '';
+    const item = container.items.find((item) => item.id === id);
+    if (!item) return '';
+    return item.image;
+  };
+
+  const findItemCheckList = (id: UniqueIdentifier | undefined) => {
+    const container = findValueOfItems(id, 'item');
+    if (!container) return [];
+    const item = container.items.find((item) => item.id === id);
+    if (!item) return [];
+    return item.checkList;
   };
 
   const findContainerTitle = (id: UniqueIdentifier | undefined) => {
@@ -392,7 +452,6 @@ export default function Home() {
                   id={container.id}
                   title={container.title}
                   key={container.id}
-                  color="red"
                   onAddItem={() => {
                     setShowAddItemModal(true);
                     setCurrentContainerId(container.id);
@@ -401,7 +460,7 @@ export default function Home() {
                   <SortableContext items={container.items.map((i) => i.id)}>
                     <div className="flex items-start flex-col gap-y-4">
                       {container.items.map((i) => (
-                        <Items title={i.title} id={i.id} key={i.id} color="red" />
+                        <Items title={i.title} id={i.id} key={i.id} color={i.color} image={i.image} checkList={i.checkList} />
                       ))}
                     </div>
                   </SortableContext>
@@ -411,13 +470,15 @@ export default function Home() {
             <DragOverlay adjustScale={false}>
               {/* Drag Overlay For item Item */}
               {activeId && activeId.toString().includes('item') && (
-                <Items id={activeId} title={findItemTitle(activeId)} color="red" />
+                <Items id={activeId} title={findItemTitle(activeId)} color={findItemColor(activeId)} 
+                image={findItemImage(activeId)} checkList={findItemCheckList(activeId)}
+                />
               )}
               {/* Drag Overlay For Container */}
               {activeId && activeId.toString().includes('container') && (
-                <Container id={activeId} title={findContainerTitle(activeId)} color="red" >
+                <Container id={activeId} title={findContainerTitle(activeId)} >
                   {findContainerItems(activeId).map((i) => (
-                    <Items key={i.id} title={i.title} id={i.id} color="red" />
+                    <Items key={i.id} title={i.title} id={i.id} color={i.color} image={i.image} checkList={i.checkList} />
                   ))}
                 </Container>
               )}
