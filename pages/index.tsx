@@ -76,7 +76,6 @@ export default function Home() {
     setShowAddItemModal(false);
   };
 
-  // Find the value of the items
   function findValueOfItems(id: UniqueIdentifier | undefined, type: string) {
     if (type === 'container') {
       return containers.find((item) => item.id === id);
@@ -132,7 +131,6 @@ export default function Home() {
     return container.items;
   };
 
-  // DND Handlers
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -149,7 +147,6 @@ export default function Home() {
   const handleDragMove = (event: DragMoveEvent) => {
     const { active, over } = event;
 
-    // Handle Items Sorting
     if (
       active.id.toString().includes('item') &&
       over?.id.toString().includes('item') &&
@@ -157,14 +154,12 @@ export default function Home() {
       over &&
       active.id !== over.id
     ) {
-      // Find the active container and over container
+
       const activeContainer = findValueOfItems(active.id, 'item');
       const overContainer = findValueOfItems(over.id, 'item');
 
-      // If the active or over container is not found, return
       if (!activeContainer || !overContainer) return;
 
-      // Find the index of the active and over container
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === activeContainer.id,
       );
@@ -172,14 +167,13 @@ export default function Home() {
         (container) => container.id === overContainer.id,
       );
 
-      // Find the index of the active and over item
       const activeitemIndex = activeContainer.items.findIndex(
         (item) => item.id === active.id,
       );
       const overitemIndex = overContainer.items.findIndex(
         (item) => item.id === over.id,
       );
-      // In the same container
+
       if (activeContainerIndex === overContainerIndex) {
         let newItems = [...containers];
         newItems[activeContainerIndex].items = arrayMove(
@@ -190,7 +184,7 @@ export default function Home() {
 
         setContainers(newItems);
       } else {
-        // In different containers
+
         let newItems = [...containers];
         const [removeditem] = newItems[activeContainerIndex].items.splice(
           activeitemIndex,
@@ -205,7 +199,6 @@ export default function Home() {
       }
     }
 
-    // Handling Item Drop Into a Container
     if (
       active.id.toString().includes('item') &&
       over?.id.toString().includes('container') &&
@@ -213,14 +206,11 @@ export default function Home() {
       over &&
       active.id !== over.id
     ) {
-      // Find the active and over container
       const activeContainer = findValueOfItems(active.id, 'item');
       const overContainer = findValueOfItems(over.id, 'container');
 
-      // If the active or over container is not found, return
       if (!activeContainer || !overContainer) return;
 
-      // Find the index of the active and over container
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === activeContainer.id,
       );
@@ -228,12 +218,10 @@ export default function Home() {
         (container) => container.id === overContainer.id,
       );
 
-      // Find the index of the active and over item
       const activeitemIndex = activeContainer.items.findIndex(
         (item) => item.id === active.id,
       );
 
-      // Remove the active item from the active container and add it to the over container
       let newItems = [...containers];
       const [removeditem] = newItems[activeContainerIndex].items.splice(
         activeitemIndex,
@@ -244,11 +232,9 @@ export default function Home() {
     }
   };
 
-  // This is the function that handles the sorting of the containers and items when the user is done dragging.
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
-    // Handling Container Sorting
     if (
       active.id.toString().includes('container') &&
       over?.id.toString().includes('container') &&
@@ -256,20 +242,19 @@ export default function Home() {
       over &&
       active.id !== over.id
     ) {
-      // Find the index of the active and over container
+
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === active.id,
       );
       const overContainerIndex = containers.findIndex(
         (container) => container.id === over.id,
       );
-      // Swap the active and over container
+
       let newItems = [...containers];
       newItems = arrayMove(newItems, activeContainerIndex, overContainerIndex);
       setContainers(newItems);
     }
 
-    // Handling item Sorting
     if (
       active.id.toString().includes('item') &&
       over?.id.toString().includes('item') &&
@@ -277,20 +262,17 @@ export default function Home() {
       over &&
       active.id !== over.id
     ) {
-      // Find the active and over container
+
       const activeContainer = findValueOfItems(active.id, 'item');
       const overContainer = findValueOfItems(over.id, 'item');
 
-      // If the active or over container is not found, return
       if (!activeContainer || !overContainer) return;
-      // Find the index of the active and over container
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === activeContainer.id,
       );
       const overContainerIndex = containers.findIndex(
         (container) => container.id === overContainer.id,
       );
-      // Find the index of the active and over item
       const activeitemIndex = activeContainer.items.findIndex(
         (item) => item.id === active.id,
       );
@@ -298,7 +280,6 @@ export default function Home() {
         (item) => item.id === over.id,
       );
 
-      // In the same container
       if (activeContainerIndex === overContainerIndex) {
         let newItems = [...containers];
         newItems[activeContainerIndex].items = arrayMove(
@@ -308,7 +289,6 @@ export default function Home() {
         );
         setContainers(newItems);
       } else {
-        // In different containers
         let newItems = [...containers];
         const [removeditem] = newItems[activeContainerIndex].items.splice(
           activeitemIndex,
@@ -322,7 +302,7 @@ export default function Home() {
         setContainers(newItems);
       }
     }
-    // Handling item dropping into Container
+
     if (
       active.id.toString().includes('item') &&
       over?.id.toString().includes('container') &&
@@ -330,20 +310,19 @@ export default function Home() {
       over &&
       active.id !== over.id
     ) {
-      // Find the active and over container
+
       const activeContainer = findValueOfItems(active.id, 'item');
       const overContainer = findValueOfItems(over.id, 'container');
 
-      // If the active or over container is not found, return
       if (!activeContainer || !overContainer) return;
-      // Find the index of the active and over container
+
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === activeContainer.id,
       );
       const overContainerIndex = containers.findIndex(
         (container) => container.id === overContainer.id,
       );
-      // Find the index of the active and over item
+
       const activeitemIndex = activeContainer.items.findIndex(
         (item) => item.id === active.id,
       );
@@ -368,7 +347,6 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-7xl py-10">
-      {/* Add Container Modal */}
       <Modal
         showModal={showAddContainerModal}
         setShowModal={setShowAddContainerModal}
@@ -385,7 +363,6 @@ export default function Home() {
           <Button onClick={onAddContainer}>Create</Button>
         </div>
       </Modal>
-      {/* Add Item Modal */}
       <Modal showModal={showAddItemModal} setShowModal={setShowAddItemModal}>
         <div className="flex flex-col w-full items-start gap-y-4">
           <h1 className="text-gray-800 text-3xl font-bold">Add Item</h1>
@@ -436,13 +413,11 @@ export default function Home() {
               ))}
             </SortableContext>
             <DragOverlay adjustScale={false}>
-              {/* Drag Overlay For item Item */}
               {activeId && activeId.toString().includes('item') && (
                 <Items id={activeId} title={findItemTitle(activeId)} color={findItemColor(activeId)} 
                 image={findItemImage(activeId)} checkList={findItemCheckList(activeId)}
                 />
               )}
-              {/* Drag Overlay For Container */}
               {activeId && activeId.toString().includes('container') && (
                 <Container id={activeId} title={findContainerTitle(activeId)} >
                   {findContainerItems(activeId).map((i) => (

@@ -42,17 +42,12 @@ const Container = ({
       <div className="px-4 py-5 sm:px-7">
       <div className="flex flex-row-reverse ...">
       <button
-          className="border p-2 text-xs rounded-xl shadow-lg hover:shadow-xl"
+          className=" ml-2 mr-2 border p-2 text-xs rounded-xl shadow-lg hover:shadow-xl"
           {...listeners}
         >
           ปุ่มย้าย Task
         </button>
-      <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
-      </svg>
-      <svg onClick={onAddItem} className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-      </svg>
+      <Button onClick={onAddItem}>+ Create Card</Button>
       </div>
       <h1 className="text-gray-800 text-xl">{title}</h1>
       </div>
