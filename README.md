@@ -21,8 +21,6 @@
 
 ## Running the Project
 
-    ```bash
-    npm run dev
-    ```
+npm run dev
 
 This will start the application in development mode and typically host it on a local server, like http://localhost:3000
