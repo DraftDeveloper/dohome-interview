@@ -4,7 +4,7 @@
 
 สวัดดีครับ ผมชื่อ เกษมศักดิ์ (โพด) ตามที่ได้รับข้อสอบ ได้นำโปรเจค ขึ้น git เรียบร้อยครับ
 
-## Setup and Installation
+## Setup Installation and Run Project
 
 1. Clone the repository:
    ```bash
@@ -18,9 +18,8 @@
    ```bash
    npm install
    ```
-
-## Running the Project
-
-npm run dev
-
-This will start the application in development mode and typically host it on a local server, like http://localhost:3000
+4. Running the Project
+   ```bash
+   npm run dev
+   ```
+   This will start the application in development mode and typically host it on a local server, like http://localhost:3000
