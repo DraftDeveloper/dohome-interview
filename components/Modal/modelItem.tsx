@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef } from 'react';
-import FocusTrap from 'focus-trap-react';
-import { AnimatePresence, motion } from 'framer-motion';
-import clsx from 'clsx';
+import { useCallback, useEffect, useRef } from "react";
+import FocusTrap from "focus-trap-react";
+import { AnimatePresence, motion } from "framer-motion";
+import clsx from "clsx";
 
 // Types
-import ModalProps from './modal.type';
+import ModalProps from "./modal.type";
 
 export default function ModalItem({
   children,
@@ -18,16 +18,16 @@ export default function ModalItem({
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setShowModal(false);
       }
     },
-    [setShowModal],
+    [setShowModal]
   );
 
   useEffect(() => {
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [onKeyDown]);
 
   return (
@@ -52,7 +52,7 @@ export default function ModalItem({
                 className={clsx(
                   `relative w-full max-w-2xl transform rounded-xl border border-gray-200 bg-white p-6 text-left shadow-2xl transition-all
     max-h-[80vh] overflow-y-auto`,
-                  containerClasses,
+                  containerClasses
                 )}
               >
                 {children}

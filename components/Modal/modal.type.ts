@@ -1,5 +1,5 @@
-import { UniqueIdentifier } from '@dnd-kit/core';
-import { Dispatch, SetStateAction } from 'react';
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { Dispatch, SetStateAction } from "react";
 
 export default interface ModalProps {
   children: React.ReactNode;
