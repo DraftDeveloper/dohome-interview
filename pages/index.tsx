@@ -27,7 +27,7 @@ import { Inter } from "next/font/google";
 import Container from "@/components/Container";
 import Items from "@/components/Item";
 import Modal from "@/components/Modal";
-import ModalItem from "@/components/Modal/modelitem";
+import ModalItem from "@/components/Modal/modelItem";
 import Input from "@/components/Input";
 import { Button } from "@/components/Button";
 import { DNDType, CheckList } from "@/components/interface";
